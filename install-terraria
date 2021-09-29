@@ -1,0 +1,69 @@
+#!/bin/bash
+MY_PATH="`dirname \"$0\"`"
+cd "$MY_PATH"
+HEIGHT=15
+WIDTH=40
+CHOICE_HEIGHT=4
+BACKTITLE="Creado por: Elsoberanox - https://www.youtube.com/c/JuegosenLinux"
+TITLE="www.juegosenlinux.site"
+MENU="Terraria - Elsoberanox"
+
+OPTIONS=(1 "Instalar Terraria"
+         2 "Desinstalar"
+         3 "Ver mas ports"
+         4 "Salir")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+#!/bin/bash
+MY_PATH="`dirname \"$0\"`"
+cd "$MY_PATH"
+sudo cp winetricks /usr/bin/
+sudo chmod +x badown
+./badown https://www.mediafire.com/file/zx5sikgjlw1dxmk/wineson.7z/file
+7z x wineson.7z -psmiterganks13
+sudo rm -R wineson.7z
+sudo mv wineson /opt/
+./badown https://www.mediafire.com/file/m6hh8avyt58aqmo/T3rr4r1a-v1.4.2.3.rar/file
+unrar x T3rr4r1a-v1.4.2.3.rar
+sudo rm -R T3rr4r1a-v1.4.2.3.rar
+sudo mv Terraria\ v1.4.2.3-PiviGames.blog/ Terraria-linux
+mkdir $HOME/Juegos/
+sudo mv Terraria-linux $HOME/Juegos/
+echo -e "cd $HOME/Juegos/Terraria-linux/\nexport PATH=/opt/wineson/bin/\nwine Terra\nwine Terraria.exe" >> terraria-bin
+sudo chmod +x terraria-bin
+sudo mv terraria-bin /usr/bin/
+wget /opt/ https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/46b63d3c-ae67-464c-9a37-670829b2a157/daaq4iz-f21c14b3-ff8d-48b5-a95f-2fc64938156b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzQ2YjYzZDNjLWFlNjctNDY0Yy05YTM3LTY3MDgyOWIyYTE1N1wvZGFhcTRpei1mMjFjMTRiMy1mZjhkLTQ4YjUtYTk1Zi0yZmM2NDkzODE1NmIucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.AMvItHSj2IBtTePrzVKRkaFSvFSkqZuqpY43r6KBGSg -O terrarialinux.png
+sudo mv terrarialinux.png /opt/
+echo -e "[Desktop Entry]\n Version=1.0\n Type=Application\n Name=Terraria Linux\n Comment=terraria-bin\n Icon=/opt/terrarialinux.png\n Exec=terraria-bin\n Categories=Game;" >> Terraria.desktop
+sudo chmod +x Terraria.desktop
+sudo mv Terraria.desktop $HOME/.local/share/applications
+xdg-desktop-menu forceupdate
+            ;;
+        2)
+sudo rm -R /usr/bin/winetricks
+sudo rm -R /opt/wineson
+sudo rm -R /usr/bin/terraria-bin
+sudo rm -R /opt/terrarialinux.png
+sudo rm -R $HOME/Juegos/Terraria-linux
+sudo rm -R $HOME/.local/share/applications/Terraria.desktop
+xdg-desktop-menu forceupdate
+
+            ;;
+        3)
+            xdg-open https://www.juegosenlinux.site/
+            ;;
+            
+                    3)
+            exit
+            ;;
+esac
